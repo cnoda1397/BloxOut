@@ -6,10 +6,16 @@ public class Incoming : MonoBehaviour
 {
     public Rigidbody rb;
     public float fwd;
-    public float expand;
 
     void Update()
     {
-        rb.AddForce(0, 0, - fwd * Time.deltaTime, ForceMode.VelocityChange);
+        try {
+            rb.AddForce(0, 0, -fwd * Time.deltaTime, ForceMode.VelocityChange); }
+        catch ( UnassignedReferenceException)
+        { }
+        if (rb.position.z == -5)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -13,12 +13,12 @@ public class Inputs : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(rb.position.y - rb.transform.localScale.y/2);
-        //if player in in mid air, bring it down
+        //Debug.Log(rb.position.y - rb.transform.localScale.y/2);
+        /*if player in in mid air, bring it down
         if(rb.position.y-rb.transform.localScale.y > 1.01f)
         {
             rb.AddForce(0, -9.8f, 0, ForceMode.VelocityChange);
-        }
+        }//*/
         //Lateral Movements
         if (Input.GetKey("d"))
         {
@@ -30,9 +30,9 @@ public class Inputs : MonoBehaviour
         }
         else if (!Input.GetKey("a") && !Input.GetKey("d"))
         {
-            //rb.AddForce(0, -9.8f, 0, ForceMode.VelocityChange);
+            rb.AddForce(0, -9.8f, 0, ForceMode.VelocityChange);
             rb.velocity = Vector3.zero;
-            //rb.AddForce(0, 0, 0, ForceMode.VelocityChange);
+            rb.AddForce(0, 0, 0, ForceMode.VelocityChange);
         }
 
         //Resizing
@@ -40,18 +40,28 @@ public class Inputs : MonoBehaviour
         {
             transform.localScale += new Vector3(0, expand, 0);
         }
-        if (Input.GetKey("down"))
-        {
-            transform.localScale -= new Vector3(0, expand, 0);
-        }
-
         if (Input.GetKey("right"))
         {
             transform.localScale += new Vector3(expand, 0, 0);
         }
-        if (Input.GetKey("left"))
+
+        if (rb.transform.localScale.y >= .25)
         {
-            transform.localScale -= new Vector3(expand, 0, 0);
+            if (Input.GetKey("down"))
+            {
+                transform.localScale -= new Vector3(0, expand, 0);
+                transform.localPosition -= new Vector3(0, expand, 0);
+            }
+        }
+        if (rb.transform.localScale.x >= .25) { 
+            if (Input.GetKey("left"))
+            {
+                transform.localScale -= new Vector3(expand, 0, 0);
+            }
+        }
+        if (transform.localPosition.y < -7)
+        {
+            Debug.Log("Game Over: Final Score = " + (CollisionAndScore.Score/2).ToString());
         }
     }
 }
