@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class Incoming : MonoBehaviour
 {
-    public Rigidbody rb;
+    private Rigidbody rb;
     public float fwd;
+
+    void Awake()
+    {
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
-        try {
-            rb.AddForce(0, 0, -fwd * Time.deltaTime, ForceMode.VelocityChange); }
-        catch ( UnassignedReferenceException)
-        { }
-        if (rb.position.z == -5)
+        Debug.Log("moving");
+        rb.AddForce(0, 0, -fwd * Time.deltaTime, ForceMode.VelocityChange); 
+        
+        /*if (rb.position.z == -5)
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 }

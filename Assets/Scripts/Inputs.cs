@@ -63,5 +63,9 @@ public class Inputs : MonoBehaviour
         {
             Debug.Log("Game Over: Final Score = " + (CollisionAndScore.Score/2).ToString());
         }
+        if (rb.position.y < -1f)
+        { 
+            FindObjectOfType<GameManager>().GameOver();
+        }
     }
 }

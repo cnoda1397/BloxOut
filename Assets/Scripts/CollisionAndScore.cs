@@ -6,23 +6,24 @@ public class CollisionAndScore : MonoBehaviour
     public Text scoreText;
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(Score.ToString());
+        //Debug.Log(Score.ToString());
         if(collision.gameObject.tag == "Point")
         {
             Destroy(collision.gameObject);
             Score++;
             //Destroy(collision.collider);
         }
-        else if (collision.gameObject.tag == "Wall")
+        /*else if (collision.gameObject.tag == "Wall")
         {
-            Debug.Log("Game Over");
-        }
+            GetComponent<Inputs>().enabled = false;
+            FindObjectOfType<GameManager>().GameOver();
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
         scoreText.text = (Score/2).ToString();
-        Debug.Log(Score.ToString());
+        //Debug.Log(Score.ToString());
     }
 }
