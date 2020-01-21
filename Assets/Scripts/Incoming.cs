@@ -14,7 +14,7 @@ public class Incoming : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("moving");
+        //Debug.Log("moving");
         rb.AddForce(0, 0, -fwd * Time.deltaTime, ForceMode.VelocityChange); 
         
         /*if (rb.position.z == -5)

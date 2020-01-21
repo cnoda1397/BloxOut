@@ -45,11 +45,11 @@ public class ProceduralGeneration : MonoBehaviour
 
         //Change values IN EVERYTHING
         leftWall.GetComponent<Transform>().localScale = new Vector3(lengthLeftWall, yWall, 1);
-        leftWall.GetComponent<Transform>().position = new Vector3(lengthLeftWall / 2 - xFloor / 2 + .5f, 1, 125);
-        if (lengthLeftWall % 2 == 0)
-            leftWall.GetComponent<Transform>().position = new Vector3(lengthLeftWall / 2 - xFloor / 2 + 1, 1, 125);
-        else
-            leftWall.GetComponent<Transform>().position = new Vector3(lengthLeftWall / 2 - xFloor / 2 + .5f, 1, 125);
+        leftWall.GetComponent<Transform>().position = new Vector3((float)lengthLeftWall / 2 - (float)xFloor / 2, 5.5f, 125);
+        //if (lengthLeftWall % 2 == 0)
+        //    leftWall.GetComponent<Transform>().position = new Vector3(lengthLeftWall / 2 - xFloor / 2 + 1f, 1, 125);
+        //else
+        //    leftWall.GetComponent<Transform>().position = new Vector3(lengthLeftWall / 2 - xFloor / 2 + 1f, 1, 125);
 
         /*rightWall.GetComponent<Transform>().localScale = new Vector3(lengthRightWall, yWall, 1);
         if (lengthRightWall % 2 != 0)
