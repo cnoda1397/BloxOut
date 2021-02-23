@@ -1,0 +1,10 @@
+Welcome to Blox Out!
+In this game, you control Reddy, a cube that can morph his size. Finesse your way through the oncoming walls and collect as many points as you can. The bigger you are, the more points you'll get. If you come in contact with the wall, you get pushed back. Fall off the platform and it's Game Over.
+
+Controls:
+[A] - move left
+[D] - move right
+[^] - grow taller
+[>] - grow wider
+[v] - shrink shorter
+[<] - shrink skinnier

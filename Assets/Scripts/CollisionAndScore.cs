@@ -15,39 +15,41 @@ public class CollisionAndScore : MonoBehaviour
             Score++;
             //Destroy(collision.collider);
         }
-        else if (collision.gameObject.tag == "Wall")
+        /*else if (collision.gameObject.tag == "Wall")
         {
-            /*GetComponent<Inputs>().enabled = false;
-            FindObjectOfType<GameManager>().GameOver();*/
-            gameObject.GetComponent<Rigidbody>().AddForce(0, 0, -incoming * Time.deltaTime, ForceMode.VelocityChange);
-            pushBack = true;
-            Debug.Log("Hitting Wall");
-        }
+            GetComponent<Inputs>().enabled = false;
+            FindObjectOfType<GameManager>().GameOver();
+            //pushBack = true;
+            //Debug.Log("Hitting Wall");
+        }*/
     }
+
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
-            /*GetComponent<Inputs>().enabled = false;
-            FindObjectOfType<GameManager>().GameOver();*/
-            pushBack = true;
-            //Debug.Log("Hitting Wall");
+            //gameObject.GetComponent<Rigidbody>().velocity = collision.gameObject.GetComponent<Rigidbody>().velocity;
+            //Debug.Log("Still this Hitting Wall");
         }
     }
     void OnCollisionExit(Collision collision)
     {
-        pushBack = false;
+        if (collision.gameObject.tag == "Wall")
+        {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            //Debug.Log("leaving wall");
+        }
+        else if (collision.gameObject.tag == "Point")
+        {
+            Debug.Log(Score);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (pushBack)
-        {
-            transform.localPosition -= new Vector3(0, 0, incoming);
-            Debug.Log("Hitting Wall");
-        }
-        scoreText.text = (Score/2).ToString();
+
+        scoreText.text = (Score/4).ToString();
         //Debug.Log(Score.ToString());
     }
 }

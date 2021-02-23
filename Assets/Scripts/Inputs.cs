@@ -5,9 +5,8 @@ using UnityEngine;
 public class Inputs : MonoBehaviour
 {
     public Rigidbody rb;
-    public float sdway = 2000f;
-    public float fwd = 2000f;
-    public float expand = .1f;
+    private float sdway = 75f;
+    private float expand = .1f;
 
 
     // Update is called once per frame
@@ -45,7 +44,7 @@ public class Inputs : MonoBehaviour
             transform.localScale += new Vector3(expand, 0, 0);
         }
 
-        if (rb.transform.localScale.y >= .25)
+        if (rb.transform.localScale.y >= .5)
         {
             if (Input.GetKey("down"))
             {
@@ -53,19 +52,24 @@ public class Inputs : MonoBehaviour
                 transform.localPosition -= new Vector3(0, expand, 0);
             }
         }
-        if (rb.transform.localScale.x >= .25) { 
+        if (rb.transform.localScale.x >= .5) { 
             if (Input.GetKey("left"))
             {
                 transform.localScale -= new Vector3(expand, 0, 0);
             }
         }
-        if (transform.localPosition.y < -7)
+        if (transform.localPosition.y < 0)
         {
             Debug.Log("Game Over: Final Score = " + (CollisionAndScore.Score/2).ToString());
-        }
-        if (rb.position.y < -1f)
-        { 
+            rb.freezeRotation = false;
+            rb.AddTorque(new Vector3(1f, 1f, 0));
+            GetComponent<AudioSource>().Play();
             FindObjectOfType<GameManager>().GameOver();
+        }
+        if (Input.GetKey("r") && transform.localPosition.z > -25)
+        {
+            rb.transform.localScale = new Vector3(1f, 1f, 1f);
+            rb.transform.localPosition = new Vector3(0f, 1f, rb.transform.localPosition.z);
         }
     }
 }

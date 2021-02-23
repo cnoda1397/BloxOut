@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Incoming : MonoBehaviour
 {
     private Rigidbody rb;
-    public float fwd;
-
+    float fwd;
     void Awake()
     {
+        fwd = FindObjectOfType<ProceduralGeneration>().fwd;
+        //Debug.Log("speed = " + fwd);
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -17,9 +19,10 @@ public class Incoming : MonoBehaviour
         //Debug.Log("moving");
         rb.AddForce(0, 0, -fwd * Time.deltaTime, ForceMode.VelocityChange); 
         
-        /*if (rb.position.z == -5)
+        if (rb.position.z <= -25)
         {
             Destroy(gameObject);
-        }*/
+        }
     }
 }
+//FindObjectOfType<ProceduralGeneration>().spawnCount
