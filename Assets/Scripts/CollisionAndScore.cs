@@ -37,12 +37,8 @@ public class CollisionAndScore : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            //Debug.Log("leaving wall");
         }
-        //else if (collision.gameObject.tag == "Point")
-        //{
-        //    Debug.Log(Score);
-        //}
+
     }
 
     // Update is called once per frame
@@ -50,6 +46,5 @@ public class CollisionAndScore : MonoBehaviour
     {
 
         scoreText.text = (Score/4).ToString();
-        //Debug.Log(Score.ToString());
     }
 }

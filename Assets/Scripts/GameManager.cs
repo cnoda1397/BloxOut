@@ -85,12 +85,10 @@ public class GameManager : MonoBehaviour
             playerTemp = PlayerPrefs.GetString(playerKey, "cpu");
             if (score > scoreTemp)
             {
-                Debug.Log("PlayerPrev: " + playerPrev);
                 PlayerPrefs.SetString(playerPrev, playerTemp);
                 PlayerPrefs.SetInt(prev, scoreTemp);
                 PlayerPrefs.SetString(playerKey, player);
                 PlayerPrefs.SetInt(key, score);
-                Debug.Log("scoreTemp: " + scoreTemp.ToString());
                 prev = key;
                 playerPrev = playerKey;
             }
