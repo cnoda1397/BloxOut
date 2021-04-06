@@ -7,7 +7,7 @@ public class Inputs : MonoBehaviour
     public Rigidbody rb;
     private float sdway = 75f;
     private float expand = .1f;
-
+    private bool once = true;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -58,13 +58,17 @@ public class Inputs : MonoBehaviour
                 transform.localScale -= new Vector3(expand, 0, 0);
             }
         }
-        if (transform.localPosition.y < 0)
+        if (transform.localPosition.y < 0.5)
         {
-            Debug.Log("Game Over: Final Score = " + (CollisionAndScore.Score/2).ToString());
-            rb.freezeRotation = false;
+            if (once)
+            {
+                once = false;
+                rb.freezeRotation = false;
+                GetComponent<AudioSource>().Play();
+                FindObjectOfType<GameManager>().GameOver();
+            }
             rb.AddTorque(new Vector3(1f, 1f, 0));
-            GetComponent<AudioSource>().Play();
-            FindObjectOfType<GameManager>().GameOver();
+            
         }
         if (Input.GetKey("r") && transform.localPosition.z > -25)
         {

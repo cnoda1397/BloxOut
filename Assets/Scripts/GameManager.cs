@@ -2,45 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public bool isAlive = true;
     public GameObject pauseMenu;
     public GameObject pauseButton;
-    
+    public GameObject gameOverCanvas;
+    public GameObject inputCanvas;
+
+    public InputField nameInput;
+    public Text playerList;
+    public Text scoreList;
     public void Awake()
     {
         Resume();
     }
     public void GameOver()
     {
+        pauseButton.SetActive(false);
         isAlive = false;
-        
         int score = CollisionAndScore.Score / 4;
-        int temp;
-        string prev = "score9";
-        string key = "score9";
-        if (score > PlayerPrefs.GetInt(prev, 0))
+        if (score > PlayerPrefs.GetInt("score10", 0))
         {
-            Debug.Log("SCORE Update in effect");
-            PlayerPrefs.SetInt(prev, score);
-            for (int i = 8; i >= 0; i--)
-            {
-                key.Replace(key[key.Length - 1], (char)i);
-                if (score > PlayerPrefs.GetInt(key, 0))
-                {
-                    temp = PlayerPrefs.GetInt(key, 0);
-                    PlayerPrefs.SetInt(key, score);
-                    PlayerPrefs.SetInt(prev, temp);
-                    prev = key;
-                }
-                else break;
-            }
+            //string yourScore = "Your Score: " + score.ToString();
+            //playerScore.text = yourScore;
+            inputCanvas.SetActive(true);
+            nameInput.onEndEdit.AddListener(setPrefs);
+
         }
-        Invoke("Restart", 3f);
-        
-            
+        else Invoke("Restart", 3f);
 
     }
     public void Restart()
@@ -55,7 +47,6 @@ public class GameManager : MonoBehaviour
 
         pauseMenu.SetActive(true);
         pauseButton.SetActive(false);
-        Debug.Log("Game Paused");
 
     }
 
@@ -66,17 +57,50 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    /*public static void getPrefs(Action func)
+    private void setPrefs(string arg0)
     {
-        string prev = "score9";
-        string key = "score9";
-        for (int i = 8; i >= 0; i--)
+        //string player = nameInput.GetComponent<Text>().text;
+        string player = arg0;
+        inputCanvas.SetActive(false);
+        gameOverCanvas.SetActive(true);
+        int score = CollisionAndScore.Score / 4;
+        int scoreTemp;
+        string playerTemp;
+        string playerPrev = "player10";
+        string playerKey;
+        string prev = "score10";
+        string key;
+        PlayerPrefs.SetInt(prev, score);
+        PlayerPrefs.SetString(playerPrev, player);
+        /*
+         Get the values of the iterator's spot on leaderboard abd save them
+         If the score is higher, set the previous spot's values to the current values (temp)
+         Set the curretn values to the Player's values
+         */
+        for (int i = 9; i > 0; i--)
         {
-            key.Replace(key[key.Length - 1], (char)i);
-            func();
-            prev = key;
+            playerKey = "player" + i.ToString();
+            key = "score" + i.ToString();
+            scoreTemp = PlayerPrefs.GetInt(key, 0);
+            playerTemp = PlayerPrefs.GetString(playerKey, "cpu");
+            if (score > scoreTemp)
+            {
+                Debug.Log("PlayerPrev: " + playerPrev);
+                PlayerPrefs.SetString(playerPrev, playerTemp);
+                PlayerPrefs.SetInt(prev, scoreTemp);
+                PlayerPrefs.SetString(playerKey, player);
+                PlayerPrefs.SetInt(key, score);
+                Debug.Log("scoreTemp: " + scoreTemp.ToString());
+                prev = key;
+                playerPrev = playerKey;
+            }
+            else break;
         }
-    }*/
-    
+        MainMenu.setScoreList();
+        scoreList.text = MainMenu.highScores;
+        playerList.text = MainMenu.playerRanks;
+        
+    }
+
 }
 

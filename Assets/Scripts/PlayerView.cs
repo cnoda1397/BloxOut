@@ -19,7 +19,7 @@ public class PlayerView : MonoBehaviour
         { 
             transform.position = player.position + offsetVert;
             if (flag)
-                Debug.Log("hello");
+                Debug.Log("Portrait");
         }
         flag = false;
     }

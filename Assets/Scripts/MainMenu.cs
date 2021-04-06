@@ -8,8 +8,16 @@ public class MainMenu : MonoBehaviour
     public GameObject ScoresObject;
     public GameObject CreditsObject;
     public Text scores;
+    public Text players;
+    public static string highScores = "";
+    public static string playerRanks = "";
 
-
+    public void Awake()
+    {
+        setScoreList();
+        scores.text = highScores;
+        players.text = playerRanks;
+    }
     public void StartGame()
     {
         SceneSwitcher.GoToGame();
@@ -38,18 +46,32 @@ public class MainMenu : MonoBehaviour
     
     public void Scores()
     {
-        //Text scores = ScoresObject.GetComponent<Text>();
-        string prev = "score9";
-        string key = "score9";
-        for (int i = 0; i < 9; i--)
-        {
-            key.Replace(key[key.Length - 1], (char)i);
-            //scores.text = scores.text + PlayerPrefs.GetInt(key, 0);
-            prev = key;
-            Debug.Log(key);
-            //scores.text = scores.text + "\n";
-        }
+        scores.text = highScores;
+        players.text = playerRanks;
         MenuObject.SetActive(false);
         ScoresObject.SetActive(true);
     }
+    public static void setScoreList()
+    {
+        string playerKey;
+        string key;
+        string scoreList = "";
+        string playerList = "";
+        for (int i = 1; i < 11; i++)
+        {
+            key = "score" + i.ToString();
+            playerKey = "player" + i.ToString();
+            scoreList = scoreList + PlayerPrefs.GetInt(key, 0).ToString() + '\n';
+            playerList = playerList + i.ToString() + ". " + PlayerPrefs.GetString(playerKey, "cpu") + '\n';
+        }
+        highScores = scoreList;
+        playerRanks = playerList;
+    }
+    public void resetPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        setScoreList();
+    }
 }
+
+//i.ToString() + ". " + 

@@ -9,7 +9,6 @@ public class SceneSwitcher : MonoBehaviour
     // Start is called before the first frame update
     public static void GoToGame()
     {
-        Debug.Log("Button Clicked");
         SceneManager.LoadScene("GameScene");
         
     }
@@ -21,6 +20,5 @@ public class SceneSwitcher : MonoBehaviour
     public static void GoToHome()
     {
         Application.Quit();
-        Debug.Log("Quitting");
     }
 }

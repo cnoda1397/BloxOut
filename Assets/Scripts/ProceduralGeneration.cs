@@ -26,7 +26,7 @@ public class ProceduralGeneration : MonoBehaviour
     {
         while (FindObjectOfType<GameManager>().isAlive)
         {
-            Debug.Log(Time.time);
+            //Debug.Log(Time.time);
             var leftWall = Instantiate(wallPrefab);
             var rightWall = Instantiate(wallPrefab);
             //GENERATE RNG FOR WIDTHS OF WALLS
